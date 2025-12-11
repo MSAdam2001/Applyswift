@@ -21,7 +21,6 @@ import {
   LayoutList,
   Calendar,
   MapPin,
-  DollarSign,
   CheckCircle,
   Clock,
   Send,
@@ -200,55 +199,6 @@ export default function ApplicationsPage() {
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                <Send className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-            </div>
-            <h3 className="text-text-light dark:text-gray-400 text-sm font-medium mb-1">Total Sent</h3>
-            <p className="text-3xl font-bold text-text dark:text-white">{mockApplications.length}</p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-              </div>
-            </div>
-            <h3 className="text-text-light dark:text-gray-400 text-sm font-medium mb-1">Delivered</h3>
-            <p className="text-3xl font-bold text-text dark:text-white">
-              {mockApplications.filter(a => a.status === "Delivered").length}
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-                <Eye className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-            </div>
-            <h3 className="text-text-light dark:text-gray-400 text-sm font-medium mb-1">Opened</h3>
-            <p className="text-3xl font-bold text-text dark:text-white">
-              {mockApplications.filter(a => a.opened).length}
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center">
-                <Mail className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-              </div>
-            </div>
-            <h3 className="text-text-light dark:text-gray-400 text-sm font-medium mb-1">Responses</h3>
-            <p className="text-3xl font-bold text-text dark:text-white">
-              {mockApplications.filter(a => a.replied).length}
-            </p>
-          </div>
-        </div>
-
         {/* Applications List/Grid */}
         {viewMode === "list" ? (
           <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -297,8 +247,7 @@ export default function ApplicationsPage() {
                         </td>
                         <td className="px-6 py-4">
                           <span className="flex items-center gap-1 text-sm text-text-light dark:text-gray-400">
-                            <DollarSign className="w-4 h-4" />
-                            {app.salary}
+                            ₦{Number(app.salary).toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4">
@@ -369,8 +318,7 @@ export default function ApplicationsPage() {
                       <span>{app.location}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4" />
-                      <span>{app.salary}</span>
+                      <span>₦{Number(app.salary).toLocaleString()}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />

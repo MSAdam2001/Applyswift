@@ -13,7 +13,6 @@ import {
   LogOut,
   Zap,
   MapPin,
-  DollarSign,
   Clock,
   Filter,
   Search,
@@ -85,6 +84,19 @@ export default function JobsPage() {
     }
     return true;
   });
+
+  // Helper to format salary in Naira
+  const formatSalary = (salary: number[] | number | string) => {
+    if (Array.isArray(salary) && salary.length === 2) {
+      return `₦${salary[0].toLocaleString()} - ₦${salary[1].toLocaleString()}`;
+    } else if (Array.isArray(salary) && salary.length === 1) {
+      return `₦${salary[0].toLocaleString()}`;
+    } else if (typeof salary === "number") {
+      return `₦${salary.toLocaleString()}`;
+    } else {
+      return "₦N/A";
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background dark:bg-gray-900 flex">
@@ -370,8 +382,7 @@ export default function JobsPage() {
                       {job.location}
                     </span>
                     <span className="flex items-center gap-1">
-                      <DollarSign className="w-4 h-4" />
-                      {job.salary}
+                      {formatSalary(job.salary)}
                     </span>
                     <span className="flex items-center gap-1">
                       <Briefcase className="w-4 h-4" />
@@ -403,135 +414,60 @@ export default function JobsPage() {
                   </div>
                 </div>
               ))}
-
-              {filteredJobs.length === 0 && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-12 text-center">
-                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Briefcase className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <h3 className="text-xl font-bold text-text dark:text-white mb-2">No Jobs Found</h3>
-                  <p className="text-text-light dark:text-gray-400 mb-4">
-                    Try adjusting your filters or search query
-                  </p>
-                  <button 
-                    onClick={() => {
-                      setFilters({
-                        location: [],
-                        salary: "",
-                        jobType: [],
-                        remote: false,
-                        minMatch: 0
-                      });
-                      setSearchQuery("");
-                    }}
-                    className="text-primary hover:underline font-medium"
-                  >
-                    Clear all filters
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
 
-        {/* Job Details Modal */}
+        {/* Job Modal */}
         {showJobModal && selectedJob && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
-              <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold">
-                    {selectedJob.company.substring(0, 2).toUpperCase()}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-text dark:text-white">{selectedJob.title}</h3>
-                    <p className="text-sm text-text-light dark:text-gray-400">{selectedJob.company}</p>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => setShowJobModal(false)}
-                  className="w-10 h-10 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <X className="w-6 h-6" />
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 rounded-xl w-3/4 max-w-3xl p-6 relative">
+              <button 
+                onClick={() => setShowJobModal(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <h2 className="text-2xl font-bold text-text dark:text-white mb-2">{selectedJob.title}</h2>
+              <p className="text-text-light dark:text-gray-400 mb-4">{selectedJob.company}</p>
+
+              <div className="flex flex-wrap gap-4 mb-4 text-sm text-text-light dark:text-gray-400">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-4 h-4" />
+                  {selectedJob.location}
+                </span>
+                <span className="flex items-center gap-1">
+                  {formatSalary(selectedJob.salary)}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Briefcase className="w-4 h-4" />
+                  {selectedJob.type}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  Posted {selectedJob.posted}
+                </span>
+              </div>
+
+              <p className="text-text-light dark:text-gray-400 mb-4">{selectedJob.description}</p>
+
+              <div className="flex items-center gap-3 mt-6">
+                <button className="flex-1 flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-lg hover:bg-primary-700 font-semibold transition-colors">
+                  <Send className="w-5 h-5" />
+                  Apply Now
                 </button>
-              </div>
-
-              <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <span className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
-                    <MapPin className="w-4 h-4" />
-                    {selectedJob.location}
-                  </span>
-                  <span className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
-                    <DollarSign className="w-4 h-4" />
-                    {selectedJob.salary}
-                  </span>
-                  <span className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
-                    <Briefcase className="w-4 h-4" />
-                    {selectedJob.type}
-                  </span>
-                  <span className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
-                    <Clock className="w-4 h-4" />
-                    {selectedJob.posted}
-                  </span>
-                  <span className={`px-3 py-2 rounded-lg text-sm font-medium ${
-                    selectedJob.match >= 90 
-                      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                      : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
-                  }`}>
-                    {selectedJob.match}% Match
-                  </span>
-                </div>
-
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-bold text-text dark:text-white mb-3">Job Description</h4>
-                    <p className="text-text-light dark:text-gray-400 leading-relaxed">
-                      {selectedJob.description}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-text dark:text-white mb-3">Requirements</h4>
-                    <ul className="space-y-2">
-                      {selectedJob.requirements.map((req: string, index: number) => (
-                        <li key={index} className="flex items-start gap-2 text-text-light dark:text-gray-400">
-                          <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-text dark:text-white mb-3">Why You're a Great Match</h4>
-                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                      <p className="text-sm text-green-800 dark:text-green-200">
-                        Your skills in React, CSS, and UI/UX align perfectly with this role. You have the right experience level and location preference.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
                 <button 
                   onClick={() => setShowJobModal(false)}
-                  className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-text dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 text-text dark:text-white py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-semibold transition-colors"
                 >
                   Close
-                </button>
-                <button className="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-700 font-semibold transition-colors">
-                  <Send className="w-5 h-5" />
-                  Apply to This Job
-                </button>
-                <button className="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary hover:text-primary transition-colors">
-                  <Bookmark className="w-5 h-5" />
                 </button>
               </div>
             </div>
           </div>
         )}
+
       </main>
     </div>
   );

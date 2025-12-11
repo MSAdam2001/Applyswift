@@ -21,7 +21,6 @@ import {
   ArrowRight,
   Calendar,
   MapPin,
-  DollarSign,
   Sparkles
 } from "lucide-react";
 import { mockUser, mockApplications, mockJobs } from "@/lib/constants/mockData";
@@ -291,8 +290,7 @@ export default function DashboardPage() {
                       {job.location}
                     </span>
                     <span className="flex items-center gap-1">
-                      <DollarSign className="w-3 h-3" />
-                      {job.salary}
+                      ₦{Number(job.salary).toLocaleString()} {/* Naira */}
                     </span>
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
