@@ -40,14 +40,14 @@ export default function ApplicationsPage() {
     return true;
   });
 
-  const formatSalary = (salary) => {
+  const formatSalary = (salary: any) => {
     if (Array.isArray(salary) && salary.length === 2) return `₦${salary[0].toLocaleString()} - ₦${salary[1].toLocaleString()}`;
     if (Array.isArray(salary) && salary.length === 1) return `₦${salary[0].toLocaleString()}`;
     if (typeof salary === "number") return `₦${salary.toLocaleString()}`;
     return "₦N/A";
   };
 
-  const getStatusClass = (status) => {
+  const getStatusClass = (status: any) => {
     if (status === "Sent") return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
     if (status === "Delivered") return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400";
     if (status === "Replied") return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";

@@ -82,7 +82,7 @@ export default function SettingsPage() {
     setTimeout(() => setSaveSuccess(false), 3000);
   };
 
-  const toggleLocation = (location) => {
+  const toggleLocation = (location : any) => {
     const current = settings.preferredLocations;
     if (current.includes(location)) {
       setSettings({...settings, preferredLocations: current.filter(l => l !== location)});
@@ -91,7 +91,7 @@ export default function SettingsPage() {
     }
   };
 
-  const toggleJobType = (type) => {
+  const toggleJobType = (type: any) => {
     const current = settings.jobTypes;
     if (current.includes(type)) {
       setSettings({...settings, jobTypes: current.filter(t => t !== type)});

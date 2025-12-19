@@ -38,7 +38,7 @@ export default function ProfilePage() {
     { icon: Settings, label: "Settings", href: "/settings" }
   ];
 
-  const formatNaira = (amount) => `₦${Number(amount).toLocaleString("en-NG")}`;
+  const formatNaira = (amount: any) => `₦${Number(amount).toLocaleString("en-NG")}`;
 
   const handleAddSkill = () => {
     const skill = newSkill.trim();
@@ -47,12 +47,12 @@ export default function ProfilePage() {
     setNewSkill("");
   };
 
-  const handleRemoveSkill = (index) => {
+  const handleRemoveSkill = (index: any) => {
     if (!confirm("Remove this skill?")) return;
     setProfile({ ...profile, skills: profile.skills.filter((_, i) => i !== index) });
   };
 
-  const handleDeleteExperience = (index) => {
+  const handleDeleteExperience = (index: any) => {
     if (!confirm("Delete this experience?")) return;
     setProfile({ ...profile, experience: profile.experience.filter((_, i) => i !== index) });
   };

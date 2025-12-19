@@ -153,7 +153,7 @@ export default function DashboardPage() {
     }
   ];
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: any) => {
     if (status === "Interview Scheduled") return "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400";
     if (status === "Under Review") return "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400";
     return "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300";
