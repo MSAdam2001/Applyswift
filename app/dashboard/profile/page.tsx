@@ -63,47 +63,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-text dark:text-white">Applyswift</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-1">
-              {menuItems.map(item => (
-                <button key={item.href} className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${currentPath === item.href ? "bg-primary-50 dark:bg-primary-900/20 text-primary" : "text-text-light dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary"}`}>
-                  <item.icon className="w-5 h-5" />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                <Bell className="w-5 h-5 text-text-light dark:text-gray-400" />
-              </button>
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold text-sm">CE</div>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 py-2">
-            <div className="flex flex-col space-y-1 px-4">
-              {menuItems.map(item => (
-                <button key={item.href} onClick={() => setMobileMenuOpen(false)} className={`flex items-center gap-3 px-4 py-3 rounded-lg ${currentPath === item.href ? "bg-primary-50 dark:bg-primary-900/20 text-primary" : "text-text-light dark:text-gray-400"}`}>
-                  <item.icon className="w-5 h-5" />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
+      
 
       <main className="max-w-7xl mx-auto w-full">
         <div className="p-4 sm:p-6 lg:p-8">

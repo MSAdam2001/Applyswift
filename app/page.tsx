@@ -31,6 +31,7 @@ export default function LandingPage() {
             <a href="#how-it-works" className="text-text-light dark:text-gray-300 hover:text-primary transition-colors">How It Works</a>
             <a href="#pricing" className="text-text-light dark:text-gray-300 hover:text-primary transition-colors">Pricing</a>
             <a href="#testimonials" className="text-text-light dark:text-gray-300 hover:text-primary transition-colors">Testimonials</a>
+                        <a href="/dashboard" className="text-text-light dark:text-gray-300 hover:text-primary transition-colors">dashbord</a>
           </div>
           
           <div className="flex items-center gap-3 mt-4 md:mt-0">
