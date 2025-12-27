@@ -71,7 +71,7 @@ export default function CoverLettersPage() {
     { id: "minimal", name: "Minimal", description: "Simple and elegant" },
   ];
 
-  const handlePreviewLetter = (letter) => {
+  const handlePreviewLetter = (letter: any) => {
     setSelectedLetter(letter);
     setShowPreview(true);
   };
